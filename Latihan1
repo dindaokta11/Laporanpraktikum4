@@ -1,0 +1,71 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Daftar Pengguna'),
+        ),
+        body: UserList(),
+      ),
+    );
+  }
+}
+
+class UserList extends StatelessWidget {
+  final List<Map<String, String>> users = [
+    {
+      "nama": "Dinda Oktavia",
+      "hobi": "Bernyanyi",
+      "foto": "https://1drv.ms/i/s!AnxvmvbEsEeqoDrCxopQ32Av7b4A?e=z0E2sE"
+    },
+    {
+      "nama": "Zee JKT48",
+      "hobi": "Menari",
+      "foto":
+          "https://up.yimg.com/ib/th?id=OIP.kn4WA-wM_GCyUX_dUf6QGgHaLh&%3Bpid=Api&rs=1&c=1&qlt=95&w=75&h=118"
+    },
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: users.length,
+      itemBuilder: (BuildContext context, int index) {
+        return UserCard(
+          nama: users[index]['nama']!,
+          hobi: users[index]['hobi']!,
+          foto: users[index]['foto']!,
+        );
+      },
+    );
+  }
+}
+
+class UserCard extends StatelessWidget {
+  final String nama;
+  final String hobi;
+  final String foto;
+
+  UserCard({required this.nama, required this.hobi, required this.foto});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: ListTile(
+        leading: CircleAvatar(
+          backgroundImage: NetworkImage(foto),
+        ),
+        title: Text(nama),
+        subtitle: Text(hobi),
+        trailing: Icon(Icons.more_vert),
+      ),
+    );
+  }
+}
